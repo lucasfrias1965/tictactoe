@@ -2,24 +2,6 @@ from typing import final
 
 
 
-class TicTacToeResult:
-    def __init__(self, board) -> None:
-        self._board = []
-
-
-class BinaryNode:
-    def __init__(self) -> None:
-        self._left = None
-        self._right = None
-        self._entry = None
-
-
-class BinarySearchTree:
-    def __init__(self) -> None:
-        self._top = None
-
-    def add(self, new_node: BinaryNode):
-        ...
 @final
 class TicTacToe:
     """A class that models TicTacToe, and beats you every time"""
@@ -34,10 +16,8 @@ class TicTacToe:
         self._board[human_move] = self._pieces["human"]
         self._turn_num += 1
     def robot_move(self):
-        #okay, we are gonna win based off of the position but
-        # instead of (sanely) using the finite solution, we are going to make a BST
-        # of all potential positions.
-        ...
+        #we're gonna just implement the wikihow strategy to start
+
     def ascii_display(self):
         print("-"*9)
         for i in range(0,9):
@@ -45,7 +25,7 @@ class TicTacToe:
             if (i+1) % 3 == 0:
                 print("\n")
         print("-"*9)
-    def did_letter_win(self, letter: str, eval_board=None):
+    def did_letter_win(self, letter: str, eval_board=None) -> bool:
         if eval_board is None:
             eval_board = self._board
         for i in range(0,3):
@@ -57,6 +37,10 @@ class TicTacToe:
         return False
 
 if __name__ == "__main__":
-    ttt = TicTacToe(human_starts=True)
-    ttt.ascii_display()
-    ttt.human_move(int(input("choose (1-9) >")) - 1)
+    ttt = TicTacToe(human_starts=False)
+
+    while True:
+        ttt.robot_move()
+        ttt.ascii_display()
+        ttt.human_move(int(input("choose (1-9) >")) - 1)
+        ttt.ascii_display()
